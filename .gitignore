@@ -1,0 +1,11 @@
+/node_modules
+/npm-debug.log
+/bower_components
+
+/assets/fonts/icons
+/build
+/assets/sass/_build
+
+/ftp.json
+/data.json
+/settings.json

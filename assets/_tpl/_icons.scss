@@ -1,0 +1,17 @@
+@include font-face( '<%= fontName %>', '/build/<%= fontName %>/<%= fontName %>' );
+
+$<%= className %>: '<%= fontName %>';
+
+.<%= className %>:before {
+    display: inline-block;
+    font-family: $<%= className %>;
+    font-style: normal;
+    font-weight: normal;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+<% _.each(glyphs, function(glyph) { %>
+$<%= className %>-<%= glyph.name %>: "\<%= glyph.codepoint.toString(16).toUpperCase() %>";
+.<%= className %>-<%= glyph.name %>:before { content: $<%= className %>-<%= glyph.name %> }<% }); %>

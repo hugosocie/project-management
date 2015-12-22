@@ -1,0 +1,21 @@
+{
+    
+    "projects" : [
+
+        {
+            "name"  : "All Projects",
+            "slug"  : "all",
+            "abbr"  : "master",
+            "count" : null,
+            "color" : "#404040",
+            "pass"  : [
+                {
+                    "id" : "abc",
+                    "passwd" : "123"
+                }
+            ]
+        }
+
+    ]
+
+}

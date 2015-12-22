@@ -1,0 +1,32 @@
+{
+  "name": "Starter",
+  "version": "0.0.2",
+  "homepage": "https://github.com/hugosocie/starter-v2",
+  "authors": [
+    "hugosocie <hugosocie@gmail.com>"
+  ],
+  "moduleType": [
+    "node"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.3",
+    "bourbon": "~4.2.2",
+    "neat": "~1.7.2",
+    "html5shiv": "~3.7.2",
+    "reset-css": "~2.0.2011012602"
+  },
+  "overrides": {
+    "html5shiv": {
+      "ignore": true
+    },
+    "reset-css": {
+      "ignore": true
+    }
+  }
+}

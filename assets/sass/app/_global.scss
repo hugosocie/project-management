@@ -1,0 +1,105 @@
+// ==========================================================================
+// Global
+// ==========================================================================
+
+
+body {
+    text-align: left;
+    font-family: $default;
+    font-weight: 100;
+    overflow-x: hidden;
+    background: $bg;
+
+    .valign-item,
+    .valign-helper {
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    .valign-helper {
+        height: 100%;
+    }
+
+    header {
+        background: $red;
+        color: #fff;
+        padding: 30px 0;
+        text-align: center;
+        font-size: 26px;
+    }
+
+    .content {
+        @include outer-container;
+        margin-top: 20px;
+    }
+
+    .block {
+        @include span-columns( 1 );
+        height: 9vw;
+        background: #fff;
+        text-align: center;
+        font-size: 0;
+        line-height: 0;
+        position: relative;
+
+        &:before,
+        &:after {
+            content: '';
+            position: absolute;
+            top: 0;
+            width: 50%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        &:before { left: 0; }
+        &:after { right: 0; }
+
+        .valign-item {
+            font-size: 18px;
+            z-index: 2;
+            position: relative;
+        }
+
+        a {
+            display: block;
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            left: 0;
+            top: 0;
+            z-index: 3;
+        }
+
+        b {
+            font-size: 50px;
+            display: block;
+            opacity: .07;
+            font-weight: 600;
+        }
+
+        &.month {
+            background: #404040;
+            color: #fff;
+        }
+
+        &.day {
+            span{
+                opacity: .2;
+                font-weight: 400;
+            }
+            b {
+                font-size: 80px;
+            }
+        }
+
+        &.am-off:before { background: $bg; }
+        &.pm-off:after { background: $bg; }
+
+        &.am-on:before { background: $red; }
+        &.pm-on:after { background: $red; }
+
+        &.am-reserved:before { background: $red; opacity: .5; }
+        &.pm-reserved:after { background: $red; opacity: .5; }
+    }
+}
