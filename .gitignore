@@ -4,6 +4,7 @@
 
 /assets/fonts/icons
 /build
+/dist
 /assets/sass/_build
 
 /ftp.json
