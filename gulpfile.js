@@ -183,12 +183,18 @@ gulp.task( 'templating', function(){
 
     for( var p in settings.projects ) {
 
-        gulp.src( options.dev + options.folders.app + '/*' )
+        gulp.src( [
+            options.dev + options.folders.app + '/colors.css',
+            options.dev + options.folders.app + '/index.html',
+            options.dev + options.folders.app + '/.htaccess',
+            options.dev + options.folders.app + '/.htpasswd'
+        ] )
             .pipe( twig( {
                 data : {
                     calendar : calendar.calendar,
                     project  : settings.projects[ p ],
-                    projects : settings.projects
+                    projects : settings.projects,
+                    baseurl  : settings.baseurl
                 },
                 cache : false,
                 changeExt : false

@@ -1,0 +1,7 @@
+AuthUserFile {{ baseurl }}{{ project.slug }}/.htpasswd
+AuthGroupFile /dev/null
+AuthName "Restricted Access"
+AuthType Basic
+<limit GET>
+require valid-user
+</Limit> 
