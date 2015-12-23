@@ -14,7 +14,9 @@ var gulp        = require( 'gulp' ),
     concat      = require( 'gulp-concat' ),
     gulpFilter  = require( 'gulp-filter' ),
     jshint      = require( 'gulp-jshint' )
-    twig        = require( 'gulp-twig' );
+    twig        = require( 'gulp-twig' ),
+    ftp         = require( 'vinyl-ftp' ),
+    gutil       = require( 'gulp-util' );
 
 
 var options = {
@@ -221,19 +223,20 @@ gulp.task( 'update', function() {
 
     var access = require( 'ftp.json' ),
         globs = [
-            'build/**',
-            'index.html',
+            'dist/**',
+            'dist/**/.htaccess',
+            'dist/**/.htpasswd'
         ];
 
     var conn = ftp.create( {
-        host     :     access.host,
-        user     :     access.user,
+        host     : access.host,
+        user     : access.user,
         password : access.password,
         parallel : 10,
         log      : gutil.log
     } );
 
-    return gulp.src( globs, { base: '.', buffer: false } )
+    return gulp.src( globs, { buffer: false } )
         .pipe( conn.dest( access.root ) );
 
 });

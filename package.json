@@ -22,8 +22,10 @@
     "gulp-sequence": "^0.3.2",
     "gulp-twig": "https://github.com/zimmen/gulp-twig",
     "gulp-uglify": "^1.2.0",
+    "gulp-util": "^3.0.7",
     "lodash": "^3.6.0",
-    "main-bower-files": "^2.6.2"
+    "main-bower-files": "^2.6.2",
+    "vinyl-ftp": "^0.4.5"
   },
   "engines": {
     "node": ">=0.10.33"
