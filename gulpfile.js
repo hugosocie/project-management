@@ -38,7 +38,8 @@ var options = {
         svg   : 'svg',
         img   : 'img',
         fonts : 'fonts',
-        icons : 'icons'
+        icons : 'icons',
+        app   : 'app'
     },
 
     iconfont : {
@@ -177,20 +178,20 @@ gulp.task( 'iconfont', function () {
 
 gulp.task( 'templating', function(){
 
-    
     var settings = require( options.datas.settings ),
         calendar = require( options.datas.calendar );
 
     for( var p in settings.projects ) {
 
-        gulp.src( options.files.html )
+        gulp.src( options.dev + options.folders.app + '/*' )
             .pipe( twig( {
                 data : {
                     calendar : calendar.calendar,
                     project  : settings.projects[ p ],
                     projects : settings.projects
                 },
-                cache : false
+                cache : false,
+                changeExt : false
             } ) )
             .pipe( gulp.dest( options.dist + settings.projects[ p ].slug ) );
 

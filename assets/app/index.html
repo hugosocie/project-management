@@ -15,9 +15,14 @@
 
         <!--[if lt IE 9]><script src="/bower_components/html5shiv/dist/html5shiv.min.js"></script><![endif]-->
         <link rel="stylesheet" href="/build/css/main.css">
+        <link rel="stylesheet" href="colors.css">
 
     </head>
     <body>
+
+        {% set months_array_en = [ 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December' ] %}
+        {% set months_array_fr = [ 'Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Decembre' ] %}
+        {% set days_array_fr = [ 'Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi' ] %}
 
         {% if project.abbr == 'master' %}
             {% include '../_tpl/master-calendar.html' %}

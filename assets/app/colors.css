@@ -1,0 +1,31 @@
+{% if project.abbr == 'master' %}
+
+    body header { background: {{ project.color }}; }
+
+    {% for p in projects %}
+        body .block.am-on.am-on-{{ p.abbr }}:before,
+        body .block.pm-on.pm-on-{{ p.abbr }}:after {
+            background: {{ p.color }};
+        }
+        body .block.am-on.am-on--{{ p.abbr }}:before,
+        body .block.pm-on.pm-on--{{ p.abbr }}:after {
+            background: {{ p.color }};
+            opacity: .5;
+        }
+    {% endfor %}
+
+{% else %}
+
+    body header,
+    body .block.am-on:before,
+    body .block.pm-on:after,
+    body .block.am-reserved:before,
+    body .block.pm-reserved:after{
+        background: {{ project.color }};
+    }
+
+    body header span {
+        color: {{ project.color }};
+    }
+
+{% endif %}

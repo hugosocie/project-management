@@ -1,18 +1,4 @@
-<style>
-    body header,
-    body .block.am-on:before,
-    body .block.pm-on:after,
-    body .block.am-reserved:before,
-    body .block.pm-reserved:after{
-        background: {{ project.color }};
-    }
-</style>
-
-<header>{{ project.name }}</header>
-
-{% set months_array_en = [ 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December' ] %}
-{% set months_array_fr = [ 'Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Decembre' ] %}
-{% set days_array_fr = [ 'Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi' ] %}
+{% include '../_tpl/header.html' %}
 
 {% for year, months in calendar %}
 

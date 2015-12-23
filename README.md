@@ -48,7 +48,7 @@ Project with "abbr : master" list all other projects
                 "am" : "-EX", // Morning reserved for "EX"
                 "pm" : "EX2" // Afternoon worked for "EX2"
             },
-            8" : { // AM not specified => AM waiting for some work
+            "8" : { // AM not specified => AM waiting for some work
                 "pm" : false // Afternoon off
             }
         },

@@ -1,26 +1,4 @@
-<style>
-
-    body header { background: {{ project.color }}; }
-
-    {% for p in projects %}
-        body .block.am-on.am-on-{{ p.abbr }}:before,
-        body .block.pm-on.pm-on-{{ p.abbr }}:after {
-            background: {{ p.color }};
-        }
-        body .block.am-on.am-on--{{ p.abbr }}:before,
-        body .block.pm-on.pm-on--{{ p.abbr }}:after {
-            background: {{ p.color }};
-            opacity: .5;
-        }
-    {% endfor %}
-
-</style>
-
 <header>{{ project.name }}</header>
-
-{% set months_array_en = [ 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December' ] %}
-{% set months_array_fr = [ 'Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Decembre' ] %}
-{% set days_array_fr = [ 'Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi' ] %}
 
 <div class="content">
     <div class="block month">
@@ -34,7 +12,7 @@
     </div>
     {% for p in projects %}
         {% if p.abbr != 'master' %}
-            <div class="block day am-on pm-on am-on-{{ p.abbr }} pm-on-{{ p.abbr }}">
+            <div class="block day am-on pm-off am-on-{{ p.abbr }} pm-on-{{ p.abbr }}">
                 <div class="valign-helper"></div>
                 <div class="valign-item">
                     <span class="name">
