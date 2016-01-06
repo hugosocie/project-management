@@ -14,6 +14,7 @@ body {
     .valign-helper {
         display: inline-block;
         vertical-align: middle;
+        max-width: 100%;
     }
 
     .valign-helper {
@@ -109,5 +110,19 @@ body {
 
         &.am-reserved:before { /*background: $red;*/ opacity: .5; }
         &.pm-reserved:after { /*background: $red;*/ opacity: .5; }
+    }
+}
+
+@media screen and ( max-width : 768px ) {
+    body .block {
+        @include span-columns( 2 );
+        height: 120px;
+    }
+}
+
+@media screen and ( max-width : 360px ) {
+    body .block {
+        @include span-columns( 4 );
+        height: 120px;
     }
 }
