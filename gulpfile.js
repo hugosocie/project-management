@@ -219,7 +219,7 @@ gulp.task( 'bower', function() {
 });
 
 
-gulp.task( 'update', function() {
+gulp.task( 'update', [ 'build' ], function() {
 
     var access = require( 'ftp.json' ),
         globs = [
