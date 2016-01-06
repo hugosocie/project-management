@@ -62,13 +62,11 @@
                         {% set pm = 'off' %}
                     {% endif %}
 
-                    {# AM Other project ( = 0FF ) #}
                     {% if days[ day ].am != false and days[ day ] != false %}
                         {% set p = ( days[ day ].am == null ? days[ day ] : days[ day ].am ) %}
                         {% set am = 'on am-on-' ~ p %}
                     {% endif %}
 
-                    {# PM Other project ( = 0FF ) #}
                     {% if days[ day ].pm != false and days[ day ] != false %}
                         {% set p = ( days[ day ].pm == null ? days[ day ] : days[ day ].pm ) %}
                         {% set pm = 'on pm-on-' ~ p %}

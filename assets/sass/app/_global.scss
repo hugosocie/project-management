@@ -104,10 +104,10 @@ body {
         &.am-off:before { background: $bg; }
         &.pm-off:after { background: $bg; }
 
-        &.am-on:before { background: $red; }
-        &.pm-on:after { background: $red; }
+//        &.am-on:before { background: $red; }
+//        &.pm-on:after { background: $red; }
 
-        &.am-reserved:before { background: $red; opacity: .5; }
-        &.pm-reserved:after { background: $red; opacity: .5; }
+        &.am-reserved:before { /*background: $red;*/ opacity: .5; }
+        &.pm-reserved:after { /*background: $red;*/ opacity: .5; }
     }
 }
