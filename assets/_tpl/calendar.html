@@ -22,6 +22,7 @@
 
                 {% set am  = false %}
                 {% set pm  = false %}
+                {% set night = false %}
 
                 {% if days[ day ] != null %}
 
@@ -71,10 +72,17 @@
                         {% set pm = 'reserved' %}
                     {% endif %}
 
+                    {% if days[ day ].night == project.abbr and days[ day ].night != null %}
+                        {% set night = days[ day ].night %}
+                    {% endif %}
+
                 {% endif %}
 
 
                 <div class="block day am-{{ am }} pm-{{ pm }}">
+                    {% if night != false %}
+                        <i class="icon icon-{{ night }}"></i>
+                    {% endif %}
                     <div class="valign-helper"></div>
                     <div class="valign-item">
                         <span class="name">

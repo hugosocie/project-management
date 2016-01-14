@@ -1,8 +1,10 @@
 {% set total = 0 %}
+{% set prev = 0 %}
 
 {% for months in calendar %}
     {% for days in months %}
         {% for day in days %}
+
             {% if day == project.abbr %}
                 {% set total = total + 1 %}
             {% endif %}
@@ -12,6 +14,20 @@
             {% if day.pm == project.abbr %}
                 {% set total = total + 0.5 %}
             {% endif %}
+            {% if day.night == project.abbr %}
+                {% set total = total + 0.5 %}
+            {% endif %}
+
+            {% if day == '-' ~ project.abbr %}
+                {% set prev = prev + 1 %}
+            {% endif %}
+            {% if day.am == '-' ~ project.abbr %}
+                {% set prev = prev + 0.5 %}
+            {% endif %}
+            {% if day.pm == '-' ~ project.abbr %}
+                {% set prev = '-' ~ prev + 0.5 %}
+            {% endif %}
+
         {% endfor %}
     {% endfor %}
 {% endfor %}
@@ -19,6 +35,6 @@
 <header>
     {{ project.name }}
     <span>
-        {{ total }} / {{ project.count }} {{ project.count > 1 ? 'jours' : 'jour' }}
+        {{ total }} <b>+ {{ prev }}</b> / {{ project.count }} {{ project.count > 1 ? 'jours' : 'jour' }}
     </span>
 </header>

@@ -12,6 +12,9 @@
             background: {{ p.color }};
             opacity: .5;
         }
+        body .block .icon-{{ p.abbr }} {
+            background-color: {{ p.color }};
+        }
     {% endfor %}
 
 {% else %}
@@ -26,6 +29,10 @@
 
     body header span {
         color: {{ project.color }};
+    }
+
+    body .block .icon-{{ project.abbr }} {
+        background-color: {{ project.color }};
     }
 
 {% endif %}

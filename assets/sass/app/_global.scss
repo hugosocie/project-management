@@ -34,6 +34,10 @@ body {
             background: #fff;
             border-radius: 3px;
             margin: 0 0 0 10px;
+
+            b {
+                opacity: .5;
+            }
         }
     }
 
@@ -85,6 +89,24 @@ body {
             display: block;
             opacity: .07;
             font-weight: 600;
+        }
+
+        .icon {
+            position: absolute;
+            height: 30px;
+            width: 30px;
+            background: black;
+            top: 5px;
+            right: 5px;
+            z-index: 2;
+            border-radius: 15px;
+            border: solid 2px rgba( #fff, .3 );
+            background: {
+                image: url( '../img/moon.png' );
+                position: center;
+                repeat: no-repeat;
+                size: 14px;
+            }
         }
 
         &.month {
