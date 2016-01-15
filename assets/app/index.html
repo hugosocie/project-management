@@ -22,13 +22,51 @@
     </head>
     <body>
 
-        {% set months_array_en = [ 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December' ] %}
-        {% set months_array_fr = [ 'Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Decembre' ] %}
-        {% set days_array_fr = [ 'Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi' ] %}
+        {% set months_array_en = [
+            'January',
+            'February',
+            'March',
+            'April',
+            'May',
+            'June',
+            'July',
+            'August',
+            'September',
+            'October',
+            'November',
+            'December'
+        ] %}
+
+        {% set months_array_fr = [
+            'Janvier',
+            'Février',
+            'Mars',
+            'Avril',
+            'Mai',
+            'Juin',
+            'Juillet',
+            'Août',
+            'Septembre',
+            'Octobre',
+            'Novembre',
+            'Decembre'
+        ] %}
+
+        {% set days_array_fr = [
+            'Dimanche',
+            'Lundi',
+            'Mardi',
+            'Mercredi',
+            'Jeudi',
+            'Vendredi',
+            'Samedi'
+        ] %}
 
         {% if project.abbr == 'master' %}
+            {% include '../_tpl/master-sidebar.html' %}
             {% include '../_tpl/master-calendar.html' %}
         {% else %}
+            {% include '../_tpl/sidebar.html' %}
             {% include '../_tpl/calendar.html' %}
         {% endif %}
 

@@ -14,6 +14,8 @@ app = {
 
         helper.click();
         helper.onPopState();
+
+        app.getCurrentDay();
     },
 
 
@@ -48,6 +50,20 @@ app = {
             app.UI.body.html( data );
             helper.metaTitle();
         });
+
+    },
+
+
+    getCurrentDay: function(){
+
+        var today = new Date(),
+            dd = today.getDate(),
+            mm = today.getMonth()+1,
+            yyyy = today.getFullYear();
+
+        var $day = $( '#' + yyyy + '-' + mm + '-' + dd );
+
+        $day.addClass( 'current-day' );
 
     }
 

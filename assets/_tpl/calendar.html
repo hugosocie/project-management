@@ -1,101 +1,194 @@
-{% include '../_tpl/header.html' %}
+<div class="content">
 
-{% for year, months in calendar %}
+    {% for year, months in calendar %}
+        {% for month, days in months %}
+        <div class="month">
 
-    {% for month, days in months %}
-        <div class="content">
-
-            <div class="block month">
-                <div class="valign-helper"></div>
-                <div class="valign-item">
-                    <span class="name">
-                        <b>{{ year }}</b>
-                        {{ months_array_fr[ month - 1 ] }}
-                    </span>
-                </div>
+            <div class="top-bar">
+                <span class="valign-helper"></span>
+                <span class="valign-item">{{ months_array_fr[ month - 1 ] }} 2016</span>
             </div>
+
+            {% for d in 0..6 %}
+            <div class="day name">
+                <span class="valign-helper"></span>
+                <span class="valign-item">{{ days_array_fr[ d ] }}</span>
+            </div>
+            {% endfor %}
 
             {% set time = ( months_array_en[ month - 1 ] ~ ' ' ~ year )|date() %}
             {% set daysInMonth = time|date('t') %}
 
-            {% for day in range( 1, daysInMonth + 1 ) %}
+            {% set total = 0 %}
 
-                {% set am  = false %}
-                {% set pm  = false %}
-                {% set night = false %}
+            {% for index, day in range( 1, daysInMonth + 1 ) %}
+                {% set name = ( day ~ ' ' ~ months_array_en[ month - 1 ] ~ ' ' ~ year )|date( 'w' ) %}
+                {% set total = total + 1 %}
 
-                {% if days[ day ] != null %}
-
-                    {# AM OFF #}
-                    {% if days[ day ].am == false or days[ day ] == false %}
-                        {% set am = 'off' %}
-                    {% endif %}
-
-                    {# PM OFF #}
-                    {% if days[ day ].pm == false or days[ day ] == false %}
-                        {% set pm = 'off' %}
-                    {% endif %}
-
-                    {# AM & PM Other project ( = OFF ) #}
-                    {% if days[ day ] != project.abbr and days[ day ].am == null and days[ day ].pm == null %}
-                        {% set am = 'off' %}
-                        {% set pm = 'off' %}
-                    {% endif %}
-
-                    {# AM Other project ( = 0FF ) #}
-                    {% if days[ day ].am != null or ( days[ day ].am != project.abbr and days[ day ].am != null ) %}
-                        {% set am = 'off' %}
-                    {% endif %}
-
-                    {# PM Other project ( = 0FF ) #}
-                    {% if days[ day ].pm != null or ( days[ day ].pm != project.abbr and days[ day ].pm != null ) %}
-                        {% set pm = 'off' %}
-                    {% endif %}
-
-                    {# AM Current project #}
-                    {% if days[ day ].am == project.abbr or days[ day ] == project.abbr %}
-                        {% set am = 'on' %}
-                    {% endif %}
-
-                    {# PM Current project #}
-                    {% if days[ day ].pm == project.abbr or days[ day ] == project.abbr %}
-                        {% set pm = 'on' %}
-                    {% endif %}
-
-                    {# AM Reserved Current project #}
-                    {% if days[ day ].am == '-' ~ project.abbr or days[ day ] == '-' ~ project.abbr %}
-                        {% set am = 'reserved' %}
-                    {% endif %}
-
-                    {# PM Reserved Current project #}
-                    {% if days[ day ].pm == '-' ~ project.abbr or days[ day ] == '-' ~ project.abbr %}
-                        {% set pm = 'reserved' %}
-                    {% endif %}
-
-                    {% if days[ day ].night == project.abbr and days[ day ].night != null %}
-                        {% set night = days[ day ].night %}
-                    {% endif %}
-
+                {% if index == 0 %}
+                    {% for void in 0..name-1 %}
+                        {% set total = total + 1 %}
+                        <div class="day">
+                            <div class="am"></div>
+                            <div class="pm"></div>
+                        </div>
+                    {% endfor %}
                 {% endif %}
 
+                {% set am    = null %}
+                {% set pm    = null %}
+                {% set night = null %}
+                {% set abbr  = project.abbr %}
 
-                <div class="block day am-{{ am }} pm-{{ pm }}">
-                    {% if night != false %}
-                        <i class="icon icon-{{ night }}"></i>
+                {% set amSquareRight = null %}
+                {% set amSquareLeft  = null %}
+                {% set pmSquareRight = null %}
+                {% set pmSquareLeft  = null %}
+
+                {# <!-- Set all day off --> #}
+                {% if days[ day ] == false and days[ day ] is not null %}
+                    {% set am = 'off' %}
+                    {% set pm = 'off' %}
+                {% endif %}
+
+                {# <!-- Set AM off --> #}
+                {% if days[ day ].am is not null and days[ day ].am == false %}
+                    {% set am = 'off' %}
+                {% endif %}
+
+                {# <!-- Set PM off --> #}
+                {% if days[ day ].pm is not null and days[ day ].pm == false %}
+                    {% set pm = 'off' %}
+                {% endif %}
+
+                {# <!-- Set all day work --> #}
+                {% if days[ day ] is not null and days[ day ] == abbr %}
+                    {% set am = 'true' %}
+                    {% set pm = 'true' %}
+                    {% set amSquareRight = true %}
+                    {% set pmSquareLeft = true %}
+
+                    {% if days[ day + 1 ] == days[ day ] or days[ day + 1 ].am == days[ day ] %}
+                        {% set pmSquareRight = true %}
                     {% endif %}
-                    <div class="valign-helper"></div>
-                    <div class="valign-item">
-                        <span class="name">
-                            <b>{{ day }}</b>
-                            {% set name = ( day ~ ' ' ~ months_array_en[ month - 1 ] ~ ' ' ~ year )|date( 'w' ) %}
-                            {{ days_array_fr[ name ] }}
-                        </span>
-                    </div>
+
+                    {% if days[ day - 1 ] == days[ day ] or days[ day - 1 ].pm == days[ day ] %}
+                        {% set amSquareLeft = true %}
+                    {% endif %}
+                {% endif %}
+
+                {# <!-- Set AM work --> #}
+                {% if days[ day ].am is not null and days[ day ].am == abbr %}
+                    {% set am = 'true' %}
+
+                    {% if days[ day ].am == days[ day ].pm %}
+                        {% set amSquareRight = true %}
+                    {% endif %}
+
+                    {% if days[ day ].am == days[ day - 1 ].pm or days[ day ].am == days[ day - 1 ] %}
+                        {% set amSquareLeft = true %}
+                    {% endif %}
+                {% endif %}
+
+                {# <!-- Set PM work --> #}
+                {% if days[ day ].pm is not null and days[ day ].pm == abbr %}
+                    {% set pm = 'true' %}
+
+                    {% if days[ day ].pm == days[ day ].am %}
+                        {% set pmSquareLeft = true %}
+                    {% endif %}
+
+                    {% if days[ day ].pm == days[ day + 1 ].am or days[ day ].pm == days[ day + 1 ] %}
+                        {% set pmSquareRight = true %}
+                    {% endif %}
+                {% endif %}
+
+                {# <!-- Set night work --> #}
+                {% if days[ day ].night is not null and days[ day ].night == abbr %}
+                    {% set night = 'true' %}
+                {% endif %}
+
+                {# <!-- Set all day work for other project --> #}
+                {% if days[ day ] is not null and days[ day ] != false and days[ day ] != abbr and days[ day ].am is null and days[ day ].pm is null %}
+                    {% set am = 'off' %}
+                    {% set pm = 'off' %}
+                {% endif %}
+
+                {# <!-- Set AM work for other project --> #}
+                {% if days[ day ].am is not null and days[ day ].am != false and days[ day ].am != abbr %}
+                    {% set am = 'off' %}
+                {% endif %}
+
+                {# <!-- Set PM work for other project --> #}
+                {% if days[ day ].pm is not null and days[ day ].pm != false and days[ day ].pm != abbr %}
+                    {% set pm = 'off' %}
+                {% endif %}
+
+                {# <!-- Set all day reserved --> #}
+                {% if days[ day ] is not null and days[ day ] == '-' ~ abbr %}
+                    {% set am = 'true-res' %}
+                    {% set pm = 'true-res' %}
+                    {% set amSquareRight = true %}
+                    {% set pmSquareLeft = true %}
+
+                    {% if days[ day + 1 ] == days[ day ] or days[ day + 1 ].am == days[ day ] %}
+                        {% set pmSquareRight = true %}
+                    {% endif %}
+
+                    {% if days[ day - 1 ] == days[ day ] or days[ day - 1 ].pm == days[ day ] %}
+                        {% set amSquareLeft = true %}
+                    {% endif %}
+                {% endif %}
+
+                {# <!-- Set AM reserved --> #}
+                {% if days[ day ].am is not null and days[ day ].am == '-' ~ abbr %}
+                    {% set am = 'true-res' %}
+
+                    {% if days[ day ].am == days[ day ].pm %}
+                        {% set amSquareRight = true %}
+                    {% endif %}
+
+                    {% if days[ day ].am == days[ day - 1 ].pm or days[ day ].am == days[ day - 1 ] %}
+                        {% set amSquareLeft = true %}
+                    {% endif %}
+                {% endif %}
+
+                {# <!-- Set PM reserved --> #}
+                {% if days[ day ].pm is not null and days[ day ].pm == '-' ~ abbr %}
+                    {% set pm = 'true-res' %}
+
+                    {% if days[ day ].pm == days[ day ].am %}
+                        {% set pmSquareLeft = true %}
+                    {% endif %}
+
+                    {% if days[ day ].pm == days[ day + 1 ].am or days[ day ].pm == days[ day + 1 ] %}
+                        {% set pmSquareRight = true %}
+                    {% endif %}
+                {% endif %}
+
+                <div class="day am-{{ am }} pm-{{ pm }} am-square-right-{{ amSquareRight }} pm-square-left-{{ pmSquareLeft }} pm-square-right-{{ pmSquareRight }} am-square-left-{{ amSquareLeft }}" id="{{ year }}-{{ month }}-{{ day }}">
+                    <div class="num">{{ day }}</div>
+                    <div class="am"></div>
+                    <div class="pm"></div>
+                    {% if night is not null %}
+                        <div class="night"></div>
+                    {% endif %}
+                    <div class="highlight"></div>
                 </div>
+
+                {% if loop.last %}
+                    {% for void in total..41 %}
+                    <div class="day">
+                        <div class="am"></div>
+                        <div class="pm"></div>
+                    </div>
+                    {% endfor %}
+                {% endif %}
 
             {% endfor %}
 
         </div>
+        {% endfor %}
     {% endfor %}
 
-{% endfor %}
+</div>

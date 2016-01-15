@@ -1,37 +1,35 @@
 {% if project.abbr == 'master' %}
 
-    body header { background: {{ project.color }}; }
-
     {% for p in projects %}
-        body .block.am-on.am-on-{{ p.abbr }}:before,
-        body .block.pm-on.pm-on-{{ p.abbr }}:after {
-            background: {{ p.color }};
-        }
-        body .block.am-on.am-on--{{ p.abbr }}:before,
-        body .block.pm-on.pm-on--{{ p.abbr }}:after {
-            background: {{ p.color }};
-            opacity: .5;
-        }
-        body .block .icon-{{ p.abbr }} {
+        body .month .day.am-true.{{ p.abbr }} .am,
+        body .month .day.pm-true.{{ p.abbr }} .pm,
+
+        body .month .day.am-true.am-{{ p.abbr }} .am,
+        body .month .day.pm-true.pm-{{ p.abbr }} .pm,
+
+        body .month .day.am-true.am--{{ p.abbr }} .am,
+        body .month .day.pm-true.pm--{{ p.abbr }} .pm,
+
+        body .month .day .night.{{ p.abbr }},
+
+        body .sidebar .project .label.{{ p.abbr }}{
             background-color: {{ p.color }};
+        }
+
+        body .month .day.am-true.am--{{ p.abbr }} .am,
+        body .month .day.pm-true.pm--{{ p.abbr }} .pm {
+            opacity: .4;
         }
     {% endfor %}
 
 {% else %}
 
-    body header,
-    body .block.am-on:before,
-    body .block.pm-on:after,
-    body .block.am-reserved:before,
-    body .block.pm-reserved:after{
-        background: {{ project.color }};
-    }
-
-    body header span {
-        color: {{ project.color }};
-    }
-
-    body .block .icon-{{ project.abbr }} {
+    body .month .day.am-true .am,
+    body .month .day.pm-true .pm,
+    body .month .day.am-true-res .am,
+    body .month .day.pm-true-res .pm,
+    body .month .day .night,
+    body .sidebar .project .label {
         background-color: {{ project.color }};
     }
 
