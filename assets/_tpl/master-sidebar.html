@@ -1,56 +1,63 @@
 <div class="sidebar">
-    {% for p in projects %}
-        {% if p.abbr != 'master' %}
-            <a href="../{{ p.slug }}">
-                <div class="project">
-                    <span class="label {{ p.abbr }}">{{ p.abbr }}</span>
-                    <p class="title">{{ p.name }}</p>
-                    <p><b>Devis</b><span>{{ p.count }} {{ p.count > 1 ? 'jours' : 'jour' }}</span></p>
+    {% for i in 0..1 %} 
+        {% for p in projects %}
+            {% if p.abbr != 'master' %}
+                {% if i == 0 and p.closed != true or i == 1 and p.closed == true %}
+                    <a href="../{{ p.slug }}">
+                        <div class="project {% if p.closed == true %}closed{% endif %}">
+                            <span class="label {{ p.abbr }}">{{ p.abbr }}</span>
+                            <p class="title">{{ p.name }}</p>
 
-                    {% set realised = 0 %}
-                    {% set reserved = 0 %}
+                            {% if i == 0 %}
+                                <p><b>Devis</b><span>{{ p.count }} {{ p.count > 1 ? 'jours' : 'jour' }}</span></p>
 
-                    {% for year, months in calendar %}
-                        {% for month, days in months %}
-                    
-                            {% set time = ( months_array_en[ month - 1 ] ~ ' ' ~ year )|date() %}
-                            {% set daysInMonth = time|date('t') %}
+                                {% set realised = 0 %}
+                                {% set reserved = 0 %}
 
-                            {% for index, day in range( 1, daysInMonth + 1 ) %}
-                                {% if days[ day ] == p.abbr %}
-                                    {% set realised = realised + 1 %}
-                                {% endif %}
-                                {% if days[ day ].am == p.abbr %}
-                                    {% set realised = realised + 0.5 %}
-                                {% endif %}
-                                {% if days[ day ].pm == p.abbr %}
-                                    {% set realised = realised + 0.5 %}
-                                {% endif %}
-                                {% if days[ day ].night == p.abbr %}
-                                    {% set realised = realised + 0.5 %}
-                                {% endif %}
+                                {% for year, months in calendar %}
+                                    {% for month, days in months %}
 
-                                {% if days[ day ] == '-' ~ p.abbr %}
-                                    {% set reserved = reserved + 1 %}
-                                {% endif %}
-                                {% if days[ day ].am == '-' ~ p.abbr %}
-                                    {% set reserved = reserved + 0.5 %}
-                                {% endif %}
-                                {% if days[ day ].pm == '-' ~ p.abbr %}
-                                    {% set reserved = reserved + 0.5 %}
-                                {% endif %}
-                                {% if days[ day ].night == '-' ~ p.abbr %}
-                                    {% set reserved = reserved + 0.5 %}
-                                {% endif %}
-                            {% endfor %}
-                        {% endfor %}
-                    {% endfor %}
+                                        {% set time = ( months_array_en[ month - 1 ] ~ ' ' ~ year )|date() %}
+                                        {% set daysInMonth = time|date('t') %}
 
-                    <p><b>Réalisé</b><span>{{ realised }}</span></p>
-                    <p><b>Réservé</b><span>{{ reserved }}</span></p>
-                    <p><b>Restant</b><span>{{ p.count - realised - reserved }}</span></p>
-                </div>
-            </a>
-        {% endif %}
+                                        {% for index, day in range( 1, daysInMonth + 1 ) %}
+                                            {% if days[ day ] == p.abbr %}
+                                                {% set realised = realised + 1 %}
+                                            {% endif %}
+                                            {% if days[ day ].am == p.abbr %}
+                                                {% set realised = realised + 0.5 %}
+                                            {% endif %}
+                                            {% if days[ day ].pm == p.abbr %}
+                                                {% set realised = realised + 0.5 %}
+                                            {% endif %}
+                                            {% if days[ day ].night == p.abbr %}
+                                                {% set realised = realised + 0.5 %}
+                                            {% endif %}
+
+                                            {% if days[ day ] == '-' ~ p.abbr %}
+                                                {% set reserved = reserved + 1 %}
+                                            {% endif %}
+                                            {% if days[ day ].am == '-' ~ p.abbr %}
+                                                {% set reserved = reserved + 0.5 %}
+                                            {% endif %}
+                                            {% if days[ day ].pm == '-' ~ p.abbr %}
+                                                {% set reserved = reserved + 0.5 %}
+                                            {% endif %}
+                                            {% if days[ day ].night == '-' ~ p.abbr %}
+                                                {% set reserved = reserved + 0.5 %}
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% endfor %}
+                                {% endfor %}
+
+                                <p><b>Réalisé</b><span>{{ realised }}</span></p>
+                                <p><b>Réservé</b><span>{{ reserved }}</span></p>
+                                <p><b>Restant</b><span>{{ p.count - realised - reserved }}</span></p>
+                            {% endif %}
+                        </div>
+                    </a>
+                {% endif %}
+            {% endif %}
+        {% endfor %}
     {% endfor %}
 </div>

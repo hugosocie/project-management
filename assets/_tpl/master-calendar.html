@@ -45,6 +45,8 @@
                 {% set pmSquareRight = null %}
                 {% set pmSquareLeft  = null %}
 
+                {% set myrdv = null %}
+
                 {# <!-- Set all day off --> #}
                 {% if days[ day ] == false and days[ day ] is not null %}
                     {% set am = 'off' %}
@@ -108,14 +110,45 @@
                     {% set night = 'true ' ~ days[ day ].night %}
                 {% endif %}
 
+                {# <!-- Set RDV --> #}
+                {% if rdv[ year ][ month ][ day ] is not null %}
+                    {# rdv[ year ][ month ][ day ] #}
+                    {% set myrdv = true %}
+                {% endif %}
+
                 <div class="day am-{{ am }} pm-{{ pm }} am-square-right-{{ amSquareRight }} pm-square-left-{{ pmSquareLeft }} pm-square-right-{{ pmSquareRight }} am-square-left-{{ amSquareLeft }}" id="{{ year }}-{{ month }}-{{ day }}">
+
                     <div class="num">{{ day }}</div>
                     <div class="am"></div>
                     <div class="pm"></div>
+
                     {% if night is not null %}
                         <div class="night {{ night }}"></div>
                     {% endif %}
+
                     <div class="highlight"></div>
+
+                    {% if myrdv is not null %}
+                        <div class="rdv p-{{ rdv[ year ][ month ][ day ].period }}">
+                            <div class="details">
+                                <p class="title">
+                                    {{ rdv[ year ][ month ][ day ].details.subject }}
+                                </p>
+                                <p class="address">
+                                    <a href="https://www.google.fr/maps/place/{{ rdv[ year ][ month ][ day ].details.address }}"
+                                       target="_blank">{{ rdv[ year ][ month ][ day ].details.place }}</a>
+                                    | {{ rdv[ year ][ month ][ day ].details.hours }}
+                                </p>
+                                <p class="name">
+                                    <a href="mailto:{{ rdv[ year ][ month ][ day ].details.mail }}">
+                                        {{ rdv[ year ][ month ][ day ].details.person }}
+                                    </a>
+                                    | {{ rdv[ year ][ month ][ day ].details.phone }}
+                                </p>
+                            </div>
+                        </div>
+                    {% endif %}
+
                 </div>
 
                 {% if loop.last %}

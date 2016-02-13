@@ -29,7 +29,8 @@ var options = {
 
     datas : {
         settings : 'settings.json',
-        calendar : 'data.json'
+        calendar : 'data.json',
+        rdv      : 'rdv.json'
     },
 
     folders : {
@@ -181,7 +182,8 @@ gulp.task( 'iconfont', function () {
 gulp.task( 'templating', function(){
 
     var settings = require( options.datas.settings ),
-        calendar = require( options.datas.calendar );
+        calendar = require( options.datas.calendar ),
+        rdv      = require( options.datas.rdv );
 
     for( var p in settings.projects ) {
 
@@ -196,7 +198,8 @@ gulp.task( 'templating', function(){
                     calendar : calendar.calendar,
                     project  : settings.projects[ p ],
                     projects : settings.projects,
-                    baseurl  : settings.baseurl
+                    baseurl  : settings.baseurl,
+                    rdv      : rdv.rdv
                 },
                 cache : false,
                 changeExt : false

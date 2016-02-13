@@ -96,7 +96,7 @@ body {
             background: $primary;
             display: inline-block;
             border-top: solid 1px darken( $primary, 10% );
-            overflow: hidden;
+            //overflow: hidden;
 
             &:nth-child( 7n + 2 ) {
                 background: darken( $primary, 3% );
@@ -257,11 +257,78 @@ body {
                 border: solid 3px rgba( $dark, .3 );
                 z-index: 3;
                 opacity: 0;
+                pointer-events: none;
                 @include transition( opacity .5s );
             }
 
             &.current-day {
                 .highlight { opacity: 1; }
+            }
+
+            .rdv {
+                position: absolute;
+                height: 0;
+                width: 0;
+                top: 50%;
+                z-index: 20;
+                cursor: pointer;
+                opacity: 1 !important;
+
+                &:before {
+                    content: '';
+                    position: absolute;
+                    height: $s / 4;
+                    width: $s / 4;
+                    background: $dark;
+                    top: 0;
+                    left: 0;
+                    border-radius: 5px;
+                    border: solid 2px #fff;
+                    @include transform( translate( -50%, -50% ) rotate( 45deg ) );
+                }
+
+                .details {
+                    cursor: default;
+                    font-size: 12px;
+                    padding: 1.5em;
+                    position: absolute;
+                    background: #fff;
+                    box-shadow: 0 1px 3px rgba( #000, .4 );
+                    border-radius: 3px;
+                    text-align: left;
+                    display: none;
+                    color: lighten( $dark, 20% );
+                    @include transform( translate( -50%, -100% ) );
+
+                    p {
+                        white-space: nowrap;
+                        margin-bottom: .3em;
+
+                        &.title {
+                            font-weight: 600;
+                            font-size: 16px;
+                            margin-bottom: .4em;
+                            color: $dark;
+                        }
+
+                        &.address {
+                            border-bottom: solid 1px darken( $primary, 10% );
+                            padding-bottom: 1em;
+                            margin-bottom: 1em;
+                        }
+
+                        &.name { margin-bottom: 0; }
+                        a { color: $red; }
+                    }
+                }
+
+                &:hover {
+                    .details { display: block;}
+                }
+
+                &.p-am { left: 25%; }
+                &.p-mid { left: 50%; }
+                &.p-pm { right: 25%; }
             }
 
         }
@@ -314,7 +381,7 @@ body {
                 background: $red;
                 color: #fff;
                 padding: 5px 10px;
-                margin-top: -5px;
+                //margin-top: -5px;
                 border-radius: 10px;
                 text-shadow: 0 1px 2px rgba( #000, .4 );
             }
