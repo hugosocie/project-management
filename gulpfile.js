@@ -6,14 +6,14 @@ var gulp        = require( 'gulp' ),
     notify      = require( 'gulp-notify' ),
     iconfont    = require( 'gulp-iconfont' ),
     consolidate = require( 'gulp-consolidate' ),
-    bless       = require( 'gulp-bless' )
+    bless       = require( 'gulp-bless' ),
     bulkSass    = require( 'gulp-sass-bulk-import' ),
     browserSync = require( 'browser-sync' ),
     bowerMain   = require( 'main-bower-files' ),
     uglify      = require( 'gulp-uglify' ),
     concat      = require( 'gulp-concat' ),
     gulpFilter  = require( 'gulp-filter' ),
-    jshint      = require( 'gulp-jshint' )
+    jshint      = require( 'gulp-jshint' ),
     twig        = require( 'gulp-twig' ),
     ftp         = require( 'vinyl-ftp' ),
     gutil       = require( 'gulp-util' );
@@ -28,9 +28,9 @@ var options = {
     build : 'dist/build/',
 
     datas : {
-        settings : 'settings.json',
-        calendar : 'data.json',
-        rdv      : 'rdv.json'
+        settings : './settings.json',
+        calendar : './data.json',
+        rdv      : './rdv.json'
     },
 
     folders : {
@@ -224,7 +224,7 @@ gulp.task( 'bower', function() {
 
 gulp.task( 'update', [ 'build' ], function() {
 
-    var access = require( 'ftp.json' ),
+    var access = require( './ftp.json' ),
         globs = [
             'dist/**',
             'dist/**/.htaccess',
