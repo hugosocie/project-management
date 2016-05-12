@@ -25,7 +25,7 @@
                 {% set name = ( day ~ ' ' ~ months_array_en[ month - 1 ] ~ ' ' ~ year )|date( 'w' ) %}
                 {% set total = total + 1 %}
 
-                {% if index == 0 %}
+                {% if index == 0 and name > 0 %}
                     {% for void in 0..name-1 %}
                         {% set total = total + 1 %}
                         <div class="day">
